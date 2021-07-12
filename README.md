@@ -16,4 +16,3 @@ This microservice is in charge of everything about... users!
 
 1. PATIENT_ADDED
 2. PATIENT_REMOVED
-3.  
