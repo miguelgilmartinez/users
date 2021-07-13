@@ -40,14 +40,23 @@ class User
     private $phoneNumber;
 
     /**
+     * This field marks entity status inside a saga (MSA transaction)
+     * Should be a kind of enum
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $status;
+    private $sagaStatus;
 
     /**
      * @ORM\OneToMany(targetEntity=PatientUsers::class, mappedBy="user", orphanRemoval=true)
      */
     private $patientUsers;
+
+    /**
+     * Stores HealthWorker UUID.
+     * When this attribute is on, this user is a HealthWorker. 
+     * @ORM\Column(type="binary", nullable=true)
+     */
+    private $healthWorker;
 
     public function __construct()
     {
@@ -79,7 +88,6 @@ class User
     public function setUsername(string $username): self
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -91,7 +99,6 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -103,19 +110,17 @@ class User
     public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
-
         return $this;
     }
 
-    public function getState(): ?string
+    public function getSagaStatus(): ?string
     {
-        return $this->state;
+        return $this->sagaStatus;
     }
 
-    public function setState(?string $status): self
+    public function setSagaStatus(?string $sagaStatus): self
     {
-        $this->state = $status;
-
+        $this->sagaStatus = $sagaStatus;
         return $this;
     }
 
@@ -145,6 +150,18 @@ class User
                 $patientUser->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHealthWorker()
+    {
+        return $this->healthWorker;
+    }
+
+    public function setHealthWorker($healthWorker): self
+    {
+        $this->healthWorker = $healthWorker;
 
         return $this;
     }

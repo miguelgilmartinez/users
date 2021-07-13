@@ -22,7 +22,7 @@ class PatientUsers
     private $id;
 
     /**
-     * This same Entity Key for message broker
+     * Entity Key for message broker
      * @ORM\Column(type="uuid")
      */
     private $patientUsersUUID;
@@ -35,12 +35,11 @@ class PatientUsers
     private $patientUUID;
 
     /**
+     * Internal relationship between Patients and a User.
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="patientUsers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
-
-     
+    private $user;   
 
     public function getId(): ?int
     {
@@ -55,7 +54,6 @@ class PatientUsers
     public function setPatientUsersUuid($patientUsersUUID): self
     {
         $this->patientUsersUUID = $patientUsersUUID;
-
         return $this;
     }
 
@@ -67,7 +65,6 @@ class PatientUsers
     public function setPatientUuid($patientUUID): self
     {
         $this->patientUUID = $patientUUID;
-
         return $this;
     }
 
@@ -79,7 +76,6 @@ class PatientUsers
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
     
