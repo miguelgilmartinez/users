@@ -18,7 +18,7 @@ class PatientUsers
 
     /**
      * Entity Key for message broker
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      */
     private $patientUsersUUID;

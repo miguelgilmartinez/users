@@ -14,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
 class User
 {
     /**
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      */
     private $userUUID;
