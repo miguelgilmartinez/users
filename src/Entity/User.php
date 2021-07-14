@@ -49,7 +49,7 @@ class User
     /**
      * Stores HealthWorker UUID.
      * When this attribute is on, this user is a HealthWorker. 
-     * @ORM\Column(type="binary", nullable=true)
+     * @ORM\Column(type="uuid", nullable=true)
      */
     private $healthWorker;
 
@@ -57,11 +57,6 @@ class User
     {
         $this->userUUID = Uuid::v4();
         $this->patientUsers = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getUserUuid()
