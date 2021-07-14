@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Patient;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PatientUsersRepository;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * This Entity stores Patient list by User.
@@ -14,15 +15,10 @@ use App\Repository\PatientUsersRepository;
  */
 class PatientUsers
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * Entity Key for message broker
+     * @ORM\Id
      * @ORM\Column(type="uuid")
      */
     private $patientUsersUUID;
@@ -30,7 +26,7 @@ class PatientUsers
     /**
      * Updated by message broker.
      * Points to Patient in remote microservice
-     * @ORM\Column(type="binary")
+     * @ORM\Column(type="uuid")
      */
     private $patientUUID;
 
@@ -39,11 +35,11 @@ class PatientUsers
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="patientUsers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;   
+    private $user;
 
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->patientUsersUUID = Uuid::v4();
     }
 
     public function getPatientUsersUuid()
@@ -78,5 +74,4 @@ class PatientUsers
         $this->user = $user;
         return $this;
     }
-    
 }

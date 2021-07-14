@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -14,12 +15,6 @@ class User
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
      * @ORM\Column(type="uuid")
      */
     private $userUUID;
@@ -60,6 +55,7 @@ class User
 
     public function __construct()
     {
+        $this->userUUID = Uuid::v4();
         $this->patientUsers = new ArrayCollection();
     }
 
@@ -76,7 +72,6 @@ class User
     public function setUserUuid($userUUID): self
     {
         $this->userUUID = $userUUID;
-
         return $this;
     }
 
@@ -150,7 +145,6 @@ class User
                 $patientUser->setUser(null);
             }
         }
-
         return $this;
     }
 
@@ -162,7 +156,6 @@ class User
     public function setHealthWorker($healthWorker): self
     {
         $this->healthWorker = $healthWorker;
-
         return $this;
     }
 }
