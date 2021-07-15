@@ -1,0 +1,10 @@
+PatientUsers:
+    type: object
+    config:
+        fields:
+            patientUsersUUID:
+                type: "ID!"
+            patientUUID:
+                type: "String!"
+            user:
+                type: "User"

@@ -4,13 +4,13 @@ Query:
         description: 'Just one query'
         fields:
             allUsers:
-                type: '[user]'
+                type: '[User]'
                 resolve: "@=resolver('all_users', [args])"
-            patientById:
-                type: 'Patient'
+            userById:
+                type: 'User'
                 resolve: "@=resolver('user_by_id', [args])"
                 args:
                     id:
-                        description: 'Resolves using patient id'
+                        description: 'Resolves using user id'
                         type: 'ID'
             

@@ -1,20 +1,20 @@
 User:
     type: object
-        config:
-            fields:
-                userUUID:
-                    type: "ID!"
-                username:
-                    type: "String!"
-                    description: "User name"
-                email:
-                    type: "String"
-                phoneNumber:
-                    type: "String"
-                sagaStatus:
-                    type: "String"
-                patientUsers:
-                    type: "[patientUsers]"
-                healthWorker:
-                    type: "String"
+    config:
+        fields:
+            userUUID:
+                type: "ID"
+            username:
+                type: "String"
+                description: "User name"
+            email:
+                type: "String"
+            phoneNumber:
+                type: "String"
+            sagaStatus:
+                type: "String"
+            patientUsers:
+                type: "[PatientUsers]"
+            healthWorker:
+                type: "String"
                     
