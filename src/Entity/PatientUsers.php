@@ -32,8 +32,8 @@ class PatientUsers
 
     /**
      * Internal relationship between Patients and a User.
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="patientUsers")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="patient_users")
+     * @ORM\JoinColumn(name="user", referencedColumnName="user_uuid", nullable=false)
      */
     private $user;
 

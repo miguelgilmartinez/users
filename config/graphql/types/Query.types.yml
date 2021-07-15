@@ -1,0 +1,16 @@
+Query:
+    type: object
+    config:
+        description: 'Just one query'
+        fields:
+            allUsers:
+                type: '[user]'
+                resolve: "@=resolver('all_users', [args])"
+            patientById:
+                type: 'Patient'
+                resolve: "@=resolver('user_by_id', [args])"
+                args:
+                    id:
+                        description: 'Resolves using patient id'
+                        type: 'ID'
+            
