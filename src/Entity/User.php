@@ -41,22 +41,9 @@ class User
      */
     private $sagaStatus;
 
-    /**
-     * @ORM\OneToMany(targetEntity=PatientUsers::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $patientUsers;
-
-    /**
-     * Stores HealthWorker UUID.
-     * When this attribute is on, this user is a HealthWorker. 
-     * @ORM\Column(type="uuid", nullable=true)
-     */
-    private $healthWorker;
-
     public function __construct()
     {
         $this->userUUID = Uuid::v4();
-        $this->patientUsers = new ArrayCollection();
     }
 
     public function getUserUuid()
@@ -111,46 +98,6 @@ class User
     public function setSagaStatus(?string $sagaStatus): self
     {
         $this->sagaStatus = $sagaStatus;
-        return $this;
-    }
-
-    /**
-     * @return Collection|PatientUsers[]
-     */
-    public function getPatientUsers(): Collection
-    {
-        return $this->patientUsers;
-    }
-
-    public function addPatientUser(PatientUsers $patientUser): self
-    {
-        if (!$this->patientUsers->contains($patientUser)) {
-            $this->patientUsers[] = $patientUser;
-            $patientUser->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePatientUser(PatientUsers $patientUser): self
-    {
-        if ($this->patientUsers->removeElement($patientUser)) {
-            // set the owning side to null (unless already changed)
-            if ($patientUser->getUser() === $this) {
-                $patientUser->setUser(null);
-            }
-        }
-        return $this;
-    }
-
-    public function getHealthWorker()
-    {
-        return $this->healthWorker;
-    }
-
-    public function setHealthWorker($healthWorker): self
-    {
-        $this->healthWorker = $healthWorker;
         return $this;
     }
 }
