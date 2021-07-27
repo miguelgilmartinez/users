@@ -1,0 +1,15 @@
+NewUserInput:
+  type: input-object
+  config:
+    fields:
+      content:
+        type: "String!"
+
+NewUserPayload:
+  type: object
+  config:
+    fields:
+      content:
+        type: "String!"
+      # hashtags:
+      #   type: "[Hashtag]"

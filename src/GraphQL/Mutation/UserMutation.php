@@ -39,12 +39,7 @@ class UserMutation implements MutationInterface, AliasedInterface
         /*
         * @todo Check user exists using userRepository or controlling exception
         */
-        return [
-            'userUUID' => $user->getUserUUID(),
-            'userName' => $userName,
-            'email' => $email,
-            'phoneNumber' => $phoneNumber
-        ];
+        return $user;
     }
 
     /**

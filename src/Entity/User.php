@@ -44,6 +44,7 @@ class User
     public function __construct(string $username, string $email, string $phoneNumber = null)
     {
         $this->userUUID = Uuid::v4();
+        $this->sagaStatus = 'pending';
     }
 
     public function getUserUuid()

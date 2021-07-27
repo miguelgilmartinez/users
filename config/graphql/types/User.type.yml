@@ -5,7 +5,7 @@ User:
             userUUID:
                 type: "ID"
             username:
-                type: "String"
+                type: "String!"
                 description: "User name"
             email:
                 type: "String"
@@ -13,4 +13,3 @@ User:
                 type: "String"
             sagaStatus:
                 type: "String"
-                    
