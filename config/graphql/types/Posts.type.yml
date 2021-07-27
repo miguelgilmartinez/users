@@ -1,15 +1,30 @@
 NewUserInput:
   type: input-object
   config:
-    fields:
-      content:
+    fields:     
+      username:
         type: "String!"
+        description: "User name"
+      email:
+        type: "String"
+      phoneNumber:
+        type: "String"
 
 NewUserPayload:
   type: object
   config:
     fields:
-      content:
+      userUUID:
+        type: "ID"
+      username:
         type: "String!"
+        description: "User name"
+      email:
+        type: "String"
+      phoneNumber:
+        type: "String"
+      sagaStatus:
+        type: "String"
+
       # hashtags:
       #   type: "[Hashtag]"

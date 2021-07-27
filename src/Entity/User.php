@@ -45,6 +45,9 @@ class User
     {
         $this->userUUID = Uuid::v4();
         $this->sagaStatus = 'pending';
+        $this->username = $username;
+        $this->email = $email;
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function getUserUuid()

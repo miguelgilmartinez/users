@@ -30,7 +30,7 @@ class UserMutation implements MutationInterface, AliasedInterface
      * @param string $phoneNumber
      * @return array
      */
-    public function addUser(string $userName, string $email, string $phoneNumber): array
+    public function addUser(string $userName, string $email, string $phoneNumber): User
     {
         $user = new User($userName, $email, $phoneNumber);  // Create a new user
         $this->em->persist($user);
