@@ -1,0 +1,9 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            add_user:
+                type: User
+                resolve: "@=mutation('add_user', [args['input']['username'], args['input']['email'], args['input']['phoneNumber']])"
+                # args:
+                #     input: 'UpdateUserProfileInput!'

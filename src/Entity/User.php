@@ -41,7 +41,7 @@ class User
      */
     private $sagaStatus;
 
-    public function __construct()
+    public function __construct(string $username, string $email, string $phoneNumber = null)
     {
         $this->userUUID = Uuid::v4();
     }

@@ -13,8 +13,4 @@ User:
                 type: "String"
             sagaStatus:
                 type: "String"
-            patientUsers:
-                type: "[PatientUsers]"
-            healthWorker:
-                type: "String"
                     
