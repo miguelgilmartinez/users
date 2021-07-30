@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsersMessageController extends AbstractController
 {
     /**
+     * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
      * @Route("/users/message", name="users_message")
      */
     public function index(): Response

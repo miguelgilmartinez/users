@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
+ * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
  * GraphQL resolver for User mutation.
  */
 class UserMutation implements MutationInterface, AliasedInterface

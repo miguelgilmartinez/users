@@ -3,7 +3,7 @@
 /**
  * Maps GraphQL petitions to Symfony
  *
- * @author miguelgilmartinez@gmail.com
+ * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
  */
 
 namespace App\GraphQL\Resolver;
