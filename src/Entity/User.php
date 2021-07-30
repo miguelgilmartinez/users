@@ -10,6 +10,7 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
+ * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
