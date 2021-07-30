@@ -116,7 +116,8 @@ class User
      */
     public function postPersistUser(LifecycleEventArgs $event): void
     {
-        throw new \Exception('postPersistUser');
+        // Now we can notify back to the message broker
+        $this->notifyBack();
     }
     /**
      * @ORM\PrePersist
@@ -139,6 +140,15 @@ class User
     }
 
     /**
+     * @ORM\PostUpdate
+     * @param LifecycleEventArgs $event Datos del evento, generalmente la entidad
+     * Listener triggered after updating User.
+     */
+    public function postUpdateUser(LifecycleEventArgs $event): void
+    {
+        // Put here logic to run after updating User    
+    }
+    /**
      * @ORM\PostRemove
      * @param LifecycleEventArgs $event Event data, usually the entity
      * Listener triggered after eliminating a User.
@@ -149,12 +159,19 @@ class User
     }
 
     /**
-     * @ORM\PostUpdate
-     * @param LifecycleEventArgs $event Datos del evento, generalmente la entidad
-     * Listener triggered after updating User.
+     * @ORM\PreRemove
+     * @param LifecycleEventArgs $event Event data, usually the entity
+     * Listener triggered before eliminating a User.
      */
-    public function postUpdateUser(LifecycleEventArgs $event): void
+    public function preRemoveUser(LifecycleEventArgs $event): void
     {
-        // Put here logic to run after updating User    
+    }
+
+    /**
+     * 
+     */
+    private function notifyBack(): void
+    {
+        
     }
 }

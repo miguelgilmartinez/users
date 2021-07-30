@@ -5,13 +5,24 @@ framework:
         # failure_transport: failed
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            async:
+            # https://symfony.com/doc/current/messenger.html#transports
+            external_messages:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
-            serializer: messenger.transport.symfony_serializer
+                serializer: App\Messenger\ExternalJsonMessageSerializer
+                options:
+                    # assume some other system will create this
+                    auto_setup: true
+                    # exchange config not needed because that's only
+                    # for *sending* messages
+                    exchange:
+                        name: messages
+                        type: fanout
+                        default_publish_routing_key: from_external
+                    queues:
+                        messages_from_external:
+                            binding_keys: [from_external]
         routing:
             #'App\GraphQL\Mutation\AddPonkaToImage': async_priority_high
-            'App\Message\NewUserAdded': async
+            'App\Message\NewUserAdded': external_messages
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
