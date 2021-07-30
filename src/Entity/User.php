@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class User
 {
@@ -103,5 +105,55 @@ class User
     {
         $this->sagaStatus = $sagaStatus;
         return $this;
+    }
+
+    /**
+     * Listener triggered after user is persisted when initial creation.
+     * Let's notify back.
+     * @ORM\PostPersist
+     * @param LifecycleEventArgs $event Event data, usuarlly the entity
+     */
+    public function postPersistUser(LifecycleEventArgs $event): void
+    {
+        throw new \Exception('postPersistUser');
+    }
+    /**
+     * @ORM\PrePersist
+     * Listener triggered before persisting on initial User creation.
+     * @param LifecycleEventArgs $event Event data, usually the entity
+     */
+    public function prePersistUser(LifecycleEventArgs $event): void
+    {
+        // Put here your logic to run before persisting the entity
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * @param LifecycleEventArgs $event Event data, usually the entity
+     * Listener triggered before persisting User when modifying.
+     */
+    public function preUpdateUser(LifecycleEventArgs $event): void
+    {
+        // Put here logic to run before persisting
+    }
+
+    /**
+     * @ORM\PostRemove
+     * @param LifecycleEventArgs $event Event data, usually the entity
+     * Listener triggered after eliminating a User.
+     */
+    public function postRemoveUser(LifecycleEventArgs $event): void
+    {
+        // Put here logic to run after eliminating a User
+    }
+
+    /**
+     * @ORM\PostUpdate
+     * @param LifecycleEventArgs $event Datos del evento, generalmente la entidad
+     * Listener triggered after updating User.
+     */
+    public function postUpdateUser(LifecycleEventArgs $event): void
+    {
+        // Put here logic to run after updating User    
     }
 }
