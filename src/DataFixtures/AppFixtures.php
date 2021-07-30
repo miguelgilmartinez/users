@@ -16,11 +16,8 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setEmail('yeah@slsl.com');
+        $user = new User("userXXXX", "test@test.com", "+34 950456191");
         $user->setSagaStatus("NEW");
-        $user->setUsername("userzzz");
-        $user->setPhoneNumber("+380665555555");
         $manager->persist($user);
         $manager->flush();
     }
