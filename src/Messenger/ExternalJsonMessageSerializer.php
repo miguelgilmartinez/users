@@ -2,7 +2,6 @@
 
 namespace App\Messenger;
 
-use App\Message\Command\LogEmoji;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
@@ -11,13 +10,14 @@ use App\Entity\User;
 class ExternalJsonMessageSerializer implements SerializerInterface
 {
     /**
-     * Decodes a message from message broker.
+     * Decodes an incoming message from message broker.
      * This could be a good starting point for a custom message serializer.
      * @var array $encodedEnvelope
      * @return Envelope 
      */
     public function decode(array $encodedEnvelope): Envelope
-    {
+    {        
+        throw new \Exception("omiy god");
         $body = $encodedEnvelope['body'];
         $headers = $encodedEnvelope['headers'];
         $data = json_decode($body, true);
@@ -38,6 +38,7 @@ class ExternalJsonMessageSerializer implements SerializerInterface
      */
     public function encode(Envelope $envelope): array
     {
+        throw new \Exception("omiy god22222");
         // this is called if a message is redelivered for "retry"
         $message = $envelope->getMessage();
         // expand this logic later if you handle more than

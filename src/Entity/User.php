@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+// use App\Repository\UserRepository;
+// use Doctrine\Common\Collections\ArrayCollection;
+// use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-
+use App\Message\NewUserAdded;
+// use Symfony\Component\Messenger\Envelope;
+// use Symfony\Component\Messenger\MessageBusInterface;
 /**
  * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -117,7 +119,7 @@ class User
     public function postPersistUser(LifecycleEventArgs $event): void
     {
         // Now we can notify back to the message broker
-        $this->notifyBack();
+        $this->notifyBackNewUser();
     }
     /**
      * @ORM\PrePersist
@@ -170,8 +172,9 @@ class User
     /**
      * 
      */
-    private function notifyBack(): void
+    private function notifyBackNewUser(): void
     {
-        
+        $message = new NewUserAdded($this);
+       // $message = new NewUserAdded();
     }
 }
