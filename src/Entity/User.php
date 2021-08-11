@@ -8,7 +8,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use App\Message\NewUserAdded;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\MessageService;
 // use Symfony\Component\Messenger\Envelope;
 // use Symfony\Component\Messenger\MessageBusInterface;
 /**
@@ -16,7 +17,7 @@ use App\Message\NewUserAdded;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class User
+class User extends AbstractController
 {
     /**
      * @ORM\Id()
@@ -170,11 +171,16 @@ class User
     }
 
     /**
-     * 
+     * Let's send a notification to the message bus
      */
-    private function notifyBackNewUser(): void
+    private function notifyBackNewUser(MessageService $me): void
     {
-        $message = new NewUserAdded($this);
-       // $message = new NewUserAdded();
+        $data = [
+            'username' => $this->username,
+            'email' => $this->email,
+            'phonenumber' => $this->phonenumber,
+            'uuid' => $this->uuid
+        ];
+        $me->createMessage($data);
     }
 }

@@ -1,0 +1,17 @@
+old_sound_rabbit_mq:
+    connections:
+        default:
+            url: "%env(RABBITMQ_URL)%"
+    producers:
+        my_messaging:
+            class: App\Rabbit\MessageProducer
+            connection: default
+            exchange_options: { name: 'qMessages', type: direct }
+    consumers:
+        my_messaging:
+            connection:       default
+            exchange_options: { name: 'qMessages', type: direct }
+            queue_options:    { name: 'qMessages'}
+            # Class which responds this callback
+            callback:         message_service
+            enable_logger:    true
