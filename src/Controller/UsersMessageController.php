@@ -4,18 +4,31 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Service\MessageSender;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-class UsersMessageController extends AbstractController
+/**
+ * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
+ */
+class UsersMessageController
 {
-    /**
-     * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
-     * @Route("/users/message", name="users_message")
-     */
-    public function index(): Response
+    private $messageService;
+    private $clonado;
+
+    public function __construct()
     {
-        return $this->render('users_message/index.html.twig', [
-            'controller_name' => 'UsersMessageController',
-        ]);
+        $this->clonado = clone ($this);
+        $this->clonado->setMessageService();
+    }
+
+    public function setMessageService(MessageSender $messageService)
+    {
+        $this->messageService = $messageService;
+    }
+
+    public function send(array $data): void
+    {
+        $this->setMessageService();
+        $this->messageService->createMessage($data);
     }
 }

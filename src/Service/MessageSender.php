@@ -5,7 +5,10 @@ namespace App\Service;
 use App\Rabbit\MessageProducer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class MessageService
+/**
+ * This service sends messages to RabbitMQ
+ */
+class MessageSender
 {
     private $messagingProducer;
 

@@ -2,22 +2,21 @@
 
 namespace App\Entity;
 
-// use App\Repository\UserRepository;
-// use Doctrine\Common\Collections\ArrayCollection;
-// use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use App\Controller\UsersMessageController;
+use App\Service\MessageSender;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\MessageService;
-// use Symfony\Component\Messenger\Envelope;
-// use Symfony\Component\Messenger\MessageBusInterface;
+
+// use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 /**
  * @author Miguel Gil Martínez <@miguelgilmartinez@gmail.com>
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass=App\Repository\UserRepository::class)
+ * @ DISABLED ORM\HasLifecycleCallbacks
  */
-class User extends AbstractController
+class User // extends AbstractController
 {
     /**
      * @ORM\Id()
@@ -47,14 +46,24 @@ class User extends AbstractController
      */
     private $sagaStatus;
 
-    public function __construct(string $username, string $email, string $phoneNumber = null)
-    {
+    private $messageSender;
+
+
+    public function __construct(
+        string $username,
+        string $email,
+        string $phoneNumber = null
+    //    MessageSender $messageSender
+    ) {
         $this->userUUID = Uuid::v4();
         $this->sagaStatus = 'pending';
         $this->username = $username;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
+    //    $this->messageSender = $messageSender;
     }
+
+
 
     public function getUserUuid()
     {
@@ -173,14 +182,16 @@ class User extends AbstractController
     /**
      * Let's send a notification to the message bus
      */
-    private function notifyBackNewUser(MessageService $me): void
+    private function notifyBackNewUser(): void
     {
         $data = [
             'username' => $this->username,
             'email' => $this->email,
-            'phonenumber' => $this->phonenumber,
-            'uuid' => $this->uuid
+            'phonenumber' => $this->phoneNumber,
+            'uuid' => $this->userUUID
         ];
-        $me->createMessage($data);
+        dump($this->messageSender);
+        $this->messageSender->createMessage($data);
+        //$message->send($data);
     }
 }
