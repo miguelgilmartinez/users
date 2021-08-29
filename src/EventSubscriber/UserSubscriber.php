@@ -9,6 +9,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 
+/**
+ * Event listener for the User entity.
+ */
 class UserSubscriber implements EventSubscriber
 {
   private $messageService;
@@ -25,27 +28,36 @@ class UserSubscriber implements EventSubscriber
     ];
   }
 
+  /**
+   * Send AMQP message after user creation.
+   *
+   * @param LifecycleEventArgs $args
+   * @return void
+   */
   public function postPersist(LifecycleEventArgs $args)
   {
     $entity = $args->getObject();
     if ($entity instanceof User) {
-      // dump ($args); die();
-      // -userUUID: Symfony\Component\Uid\UuidV4 {#894
-      //   #uid: "556e8f44-ec7d-4fd2-b99c-be9e586b0bf6"
-      // }
-      // -username: "2x3meefgva33ws3os3"
-      // -email: "man233elodwe@smanwfs3o.com"
-      // -phoneNumber: "98s776"
-      // -sagaStatus: "pending"
-      $user = $args->getObject();
-      $data = [
-        'username' => $user->getUsername(),
-        'email' => $user->getEmail(),
-        'phonenumber' => $user->getPhoneNumber(),
-        'uuid' => $user->getUserUuid(),
-      ];
-
-      $this->messageSender->createMessage($data);
+      $this->sendWelcomeMessage($entity);
     }
+  }
+
+  /**
+   * Compose and send welcome message to AMQP queue.
+   *
+   * @param User $user
+   * @return void
+   */
+  private function sendWelcomeMessage(User $user)
+  {   
+    $data = [
+      'subject' => "Welcome to GoAndDo, " . $user->getUsername(),
+      'from' => 'goanddo@go.com',
+      'to' => $user->getEmail(),
+      'text' => "Welcome to GoAndDo, " . $user->getUsername() . "!\n\n",
+      'html' => "<h1>Welcome to GoAndDo, " . $user->getUsername() . "!</h1>",
+    ];
+
+    $result = $this->messageSender->createMessage($data);
   }
 }

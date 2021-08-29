@@ -19,15 +19,16 @@ class MessageSender
 
     /**
      * Sends message to message broker.
-     * @param array $emailData
+     * @param array $messageData
      */
-    public function createMessage(array $emailData)
+    public function createMessage(array $messageData)
     {
         $message = json_encode([
-            'username' => $emailData['username'],
-            'email' => $emailData['email'],
-            'phonenumber' => $emailData['phonenumber'],
-            'uuid' => $emailData['uuid']
+            'subject' => $messageData['subject'],
+            'from' => $messageData['from'],
+            'to' => $messageData['to'],
+            'text' => $messageData['text'],
+            'html' => $messageData['html'],
         ]);
         $this->messagingProducer->publish($message);
     }

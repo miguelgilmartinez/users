@@ -30,6 +30,7 @@ class User // extends AbstractController
     private $username;
 
     /**
+     * @todo Check email is well formed
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
@@ -190,7 +191,7 @@ class User // extends AbstractController
             'phonenumber' => $this->phoneNumber,
             'uuid' => $this->userUUID
         ];
-        dump($this->messageSender);
+       // dump($this->messageSender);
         $this->messageSender->createMessage($data);
         //$message->send($data);
     }
