@@ -9,6 +9,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 
+
 /**
  * Event listener for the User entity.
  */
@@ -56,6 +57,7 @@ class UserSubscriber implements EventSubscriber
       'to' => $user->getEmail(),
       'text' => "Welcome to GoAndDo, " . $user->getUsername() . "!\n\n",
       'html' => "<h1>Welcome to GoAndDo, " . $user->getUsername() . "!</h1>",
+      'messageUUID' => uuid_create(\UUID_TYPE_DEFAULT)
     ];
 
     $result = $this->messageSender->createMessage($data);

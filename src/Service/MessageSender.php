@@ -29,6 +29,7 @@ class MessageSender
             'to' => $messageData['to'],
             'text' => $messageData['text'],
             'html' => $messageData['html'],
+            'messageUUID' => $messageData['messageUUID']
         ]);
         $this->messagingProducer->publish($message);
     }
